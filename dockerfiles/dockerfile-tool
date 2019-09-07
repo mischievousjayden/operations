@@ -1,6 +1,11 @@
 FROM ubuntu:18.04
 
+# for latex
 ENV DEBIAN_FRONTEND=noninteractive
+
+# no python byte code
+ENV PYTHONDONTWRITEBYTECODE 1
+
 RUN apt-get update -q \
     && apt-get install -qy \
         # install python \
