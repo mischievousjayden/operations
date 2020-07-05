@@ -1,7 +1,7 @@
 
-build_ubuntu_jev:
-	docker build -f Dockerfile.ubuntu.jev -t ubuntu_jev .
+latex:
+	docker build --tag latex:ubuntu20.08 -f latex-dockerfile .
 
-build_alpine_jev:
-	docker build -f Dockerfile.alpine.jev -t alpine_jev .
+tool:
+	docker build --tag tool:ubuntu20.08 -f tool-dockerfile .
 
