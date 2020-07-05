@@ -6,8 +6,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 # no python byte code
 ENV PYTHONDONTWRITEBYTECODE 1
 
-RUN apt-get update -q \
-    && apt-get install -qy \
+RUN apt update -q && \
+    apt install -qy \
         # install python \
         python3-pip python3-dev \
         # install go \
@@ -19,9 +19,9 @@ RUN apt-get update -q \
         # latex \
         texlive-full \
         # other tools \
-        gnuplot make \
-    && apt-get clean && \
-    && ln -sf /usr/bin/python3 /usr/bin/python \
-    && ln -sf /usr/bin/pip3 /usr/bin/pip \
-    && rm -rf /var/lib/apt/lists/*
+        make gnuplot graphviz && \
+    apt clean && \
+    ln -sf /usr/bin/python3 /usr/bin/python && \
+    ln -sf /usr/bin/pip3 /usr/bin/pip && \
+    rm -rf /var/lib/apt/lists/*
 
