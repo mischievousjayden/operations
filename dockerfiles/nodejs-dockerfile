@@ -1,9 +1,7 @@
 FROM centos:8
 
 ENV LANGUAGE=en_US.UTF-8 \
-    LANG=en_US.UTF-8 \
-    LC_COLLATE=C \
-    LC_CTYPE=en_US.UTF-8
+    LANG=en_US.UTF-8
 
 RUN rm -f /etc/localtime && \
     ln -sf /usr/share/zoneinfo/UTC /etc/localtime && \
