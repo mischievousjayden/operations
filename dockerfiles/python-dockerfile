@@ -1,0 +1,30 @@
+# reference: https://hub.docker.com/r/conda/miniconda3-centos7/dockerfile
+
+FROM centos:8
+
+ENV CONDA_DIR="/opt/conda" \
+    PATH=/opt/conda/bin:$PATH \
+    PYTHONDONTWRITEBYTECODE=1 \
+    LANGUAGE=en_US.UTF-8 \
+    LANG=en_US.UTF-8
+
+ONBUILD ENV PATH "$CONDA_DIR"/bin:$PATH
+
+RUN yum -y install epel-release && \
+    yum -y update && \
+    yum -y install curl bzip2 && \
+    CONDA_VERSION="4.7.12" && \
+    CONDA_MD5_CHECKSUM="0dba759b8ecfc8948f626fa18785e3d8" && \
+    curl -sSL https://repo.continuum.io/miniconda/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh -o /tmp/miniconda.sh && \
+    echo "$CONDA_MD5_CHECKSUM /tmp/miniconda.sh" | md5sum -c && \
+    mkdir -p "$CONDA_DIR" && \
+    bash /tmp/miniconda.sh -f -b -p "$CONDA_DIR" && \
+    rm -f /tmp/miniconda.sh && \
+    conda config --add channels conda-forge && \
+    conda config --set auto_update_conda False && \
+    conda clean -i -p -l -t -y && \
+    yum clean all && \
+    rm -rf /var/cache/yum && \
+    rm -f /etc/localtime && \
+    ln -sf /usr/share/zoneinfo/UTC /etc/localtime
+
